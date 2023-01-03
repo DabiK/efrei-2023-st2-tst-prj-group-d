@@ -2,17 +2,16 @@ import { BasePage } from "./base-page";
 
 export class ResetDatabasePage extends BasePage {
 
-    selectors = []
+    static RESET_DATABASE_SELECTORS = ['button']
+
+    resetDatabaseButton;
 
     constructor(page) {
-        super(page, this.selectors);
+        super(page, ResetDatabasePage.RESET_DATABASE_SELECTORS);
+        this.resetDatabaseButton = this.page.getByRole('button');
     }
 
     async resetDatabase() {
-        await page.goto("https://d.hr.dmerej.info/reset_db");
-
-        const button = page.getByRole('button');
-        await button.click();
+        await this.resetDatabaseButton.click();
     }
-
 }

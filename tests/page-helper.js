@@ -1,4 +1,6 @@
 export const pages = {
+  HOME: "https://d.hr.dmerej.info/",
+  RESET_DBB: "https://d.hr.dmerej.info/reset_db",
   EMPLOYEE: "/employees",
   TEAM: "/teams",
   ADD_EMPLOYEE: "/add_employee",

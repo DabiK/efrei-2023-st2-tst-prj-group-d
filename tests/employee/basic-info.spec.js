@@ -3,15 +3,19 @@ const { test, expect } = require("@playwright/test");
 const { cp } = require("fs");
 const { pages } = require("../page-helper");
 const { HomePage } = require("../pages/home-page");
+const { ResetDatabasePage } = require("../pages/resetdbb-page");
 
 test.describe("Basic informations edition tests", () => {
 
   test.afterEach(async ({page}) => {
-    const homePageMode = new HomePage(page);
-    await homePageMode.clickOnReset();
+    await page.goto(pages.RESET_DBB);
+    const homePageMode = new ResetDatabasePage(page);
+    await homePageMode.resetDatabase();
   })
 
-  test("should display correct informations", async ({ page }) => {});
+  test("should display correct informations", async ({ page }) => {
+    console.log("ok");
+  });
 
   test("should verify email type", async ({ page }) => {});
 
