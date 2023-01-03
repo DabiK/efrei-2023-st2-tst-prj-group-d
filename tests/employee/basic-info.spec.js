@@ -1,38 +1,21 @@
 // @ts-check
 const { test, expect } = require("@playwright/test");
+const { cp } = require("fs");
 const { pages } = require("../page-helper");
+const { HomePage } = require("../pages/home-page");
+const { ResetDatabasePage } = require("../pages/resetdbb-page");
 
 test.describe("Basic informations edition tests", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("https://d.hr.dmerej.info/employee/14");
+
+  test.afterEach(async ({page}) => {
+    await page.goto(pages.RESET_DBB);
+    const homePageMode = new ResetDatabasePage(page);
+    await homePageMode.resetDatabase();
+  })
+
+  test("should display correct informations", async ({ page }) => {
+    console.log("ok");
   });
-
-  // Cleanup
-  test.afterEach(async ({ page }) => {
-    // Supprimer tous les employees
-    await page.goto("https://d.hr.dmerej.info/employees");
-
-    // const employeeNodes = await page.$$eval("tbody tr", (trNode) => trNode);
-    // employeeNodes.forEach((employeeNode) => {
-    //     const deleteLink = employeeNode.querySelector('td:last-child a');
-    //     const href = deleteLink?.getAttribute('href');
-    //     const employeeId = href?.replace('/employee/delete/', '');
-    //     console.log('employeeID', employeeId);
-    // })
-
-    const employeeDeleteLinkLocators = page.locator('tbody tr td:last-child');
-    for (const employeeDeleteLinkLocator of await employeeDeleteLinkLocators.elementHandles()) {
-        await employeeDeleteLinkLocator.click();
-
-        // On est sur la page conformation de suppression
-        expect(page).toHaveTitle('Delete Employee');
-    } 
-
-
-
-  });
-
-  test("should display correct informations", async ({ page }) => {});
 
   test("should verify email type", async ({ page }) => {});
 
