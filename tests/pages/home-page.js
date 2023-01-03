@@ -1,5 +1,9 @@
 import { BasePage } from "./base-page";
 
+
+/**
+ * Page modèle de la page d'accueil (https://d.hr.dmerej.info/)
+ */
 export class HomePage extends BasePage {
 
     static HOME_PAGE_SELECTORS = [

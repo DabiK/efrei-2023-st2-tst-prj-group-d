@@ -5,4 +5,5 @@ export const pages = {
   TEAM: "/teams",
   ADD_EMPLOYEE: "/add_employee",
   ADD_TEAM: "/add_team",
+  EDIT_EMPLOYEE: "https://d.hr.dmerej.info/employee", // Need ajout de l'id
 };
