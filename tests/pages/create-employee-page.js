@@ -1,4 +1,5 @@
 import { BasePage } from "./base-page";
+const { pages } = require("../page-helper");
 
 export class CreateEmployeePage extends BasePage {
   submitButton;
@@ -13,16 +14,22 @@ export class CreateEmployeePage extends BasePage {
     hiringDate: "#id_hiring_date",
     jobTitle: "#id_job_title",
   };
-   
+
   constructor(page) {
-    super(page, CreateEmployeePage.CREATE_EMPLOYEE_FIELDS);
+    super(page, pages.ADD_EMPLOYEE, CreateEmployeePage.CREATE_EMPLOYEE_FIELDS);
     this.submitButton = page.locator("[type='submit']");
   }
 
-  fillCreateEmployeeForm(model) {
-    Object.keys(this.locators).forEach(async (locatorKey) => {
-        await this.locators[locatorKey].type(model[locatorKey]);
-    })
+  async fillCreateEmployeeForm(model) {
+    const objectKeys = Object.keys(this.locators);
+    for (let i = 0; i < objectKeys.length; i++) {
+      const objectKey = objectKeys[i];
+      const selector = CreateEmployeePage.CREATE_EMPLOYEE_FIELDS[objectKey];
+      await this.scrollOnElement(selector);
+      await this.page.waitForSelector(selector);
+      await this.locators[objectKey].click();
+      await this.locators[objectKey].type(model[objectKey]);
+    }
   }
 
   async submit() {

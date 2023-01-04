@@ -4,7 +4,8 @@
   "description": "This repository contains all the information you need to complete the\r project for the ST2 Software Testing course.",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test employee/create-employee.spec.js --headed --project=chromium"
+    "test:headed": "npx playwright test --headed --project=chromium",
+    "test": "npx playwright test"
   },
   "repository": {
     "type": "git",
