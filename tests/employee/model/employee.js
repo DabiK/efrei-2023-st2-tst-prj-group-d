@@ -1,4 +1,6 @@
 export class Employee {
+
+  id;
   name;
   email;
   addressLine1;
@@ -8,7 +10,8 @@ export class Employee {
   hiringDate;
   jobTitle;
 
-  constructor(name,email,addressLine1,addressLine2,city,zipCode,hiringDate,jobTitle){
+  constructor(name,email,addressLine1,addressLine2,city,zipCode,hiringDate,jobTitle, id = 0){
+    this.id = id;
     this.name = name
     this.email = email;    
     this.addressLine1 = addressLine1;
