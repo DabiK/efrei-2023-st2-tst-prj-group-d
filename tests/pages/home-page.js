@@ -1,3 +1,4 @@
+import { pages } from "../page-helper";
 import { BasePage } from "./base-page";
 
 
@@ -11,7 +12,7 @@ export class HomePage extends BasePage {
     ]
 
     constructor(page) {
-        super(page, HomePage.HOME_PAGE_SELECTORS);
+        super(page, pages.HOME, HomePage.HOME_PAGE_SELECTORS);
     }
 
     async clickOnReset() {

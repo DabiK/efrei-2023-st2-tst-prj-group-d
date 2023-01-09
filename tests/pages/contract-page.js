@@ -1,9 +1,15 @@
+import { pages } from "../page-helper";
 import { BasePage } from "./base-page"
 
 export class ContractPage extends BasePage {
 
-    constructor(page) {
-        super(page, []);
+    /**
+     * 
+     * @param {object} page 
+     * @param {number} employeeId 
+     */
+    constructor(page, employeeId) {
+        super(page, `${pages.EDIT_EMPLOYEE}/${employeeId}/contract`, []);
     }
 
 
@@ -13,7 +19,7 @@ export class ContractPage extends BasePage {
      */
     async getHiringDate() {
         const value = await this.page.locator('input[name="hiring_date"]').inputValue();
-        return value ? new Date(value): null;
+        return value ? new Date(value).toLocaleDateString(): null;
     }
 
 

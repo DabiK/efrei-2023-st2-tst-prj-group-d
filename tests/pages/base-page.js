@@ -6,6 +6,7 @@ export class BasePage {
     this.page = page;
     this.locators = {};
     this.path = path;
+
     Object.keys(locatorConfiguration).forEach(async (key) => {
       this.locators[key] = await page.locator(locatorConfiguration[key]);
     });

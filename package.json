@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test:headed": "npx playwright test --headed --project=chromium",
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "basic": "npx playwright test employee/basic-info.spec.js --project=chromium"
   },
   "repository": {
     "type": "git",

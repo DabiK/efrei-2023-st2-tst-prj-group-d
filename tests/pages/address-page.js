@@ -1,3 +1,4 @@
+import { pages } from "../page-helper";
 import { BasePage } from "./base-page";
 
 /**
@@ -5,8 +6,13 @@ import { BasePage } from "./base-page";
  */
 export class AddressPage extends BasePage {
 
-    constructor(page) {
-        super(page, []);
+    /**
+     * 
+     * @param {object} page 
+     * @param {number} employeeId 
+     */
+    constructor(page, employeeId) {
+        super(page, `${pages.EDIT_EMPLOYEE}/${employeeId}/address`, []);
     }
 
     /**

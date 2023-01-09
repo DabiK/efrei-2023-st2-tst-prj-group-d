@@ -1,5 +1,5 @@
 import { BasePage } from "./base-page";
-const { pages } = require("../page-helper");
+import { pages } from "../page-helper";
 
 export class CreateEmployeePage extends BasePage {
   submitButton;
@@ -21,6 +21,7 @@ export class CreateEmployeePage extends BasePage {
   }
 
   async fillCreateEmployeeForm(model) {
+    await this.wait(1000);
     const objectKeys = Object.keys(this.locators);
     for (let i = 0; i < objectKeys.length; i++) {
       const objectKey = objectKeys[i];

@@ -1,3 +1,4 @@
+import { pages } from "../page-helper";
 import { BasePage } from "./base-page";
 
 
@@ -6,24 +7,29 @@ import { BasePage } from "./base-page";
  */
 export class BasicInfoPage extends BasePage {
 
-    constructor(page) {
-        super(page, []);
+    /**
+     * 
+     * @param {object} page 
+     * @param {number} employeeId 
+     */
+    constructor(page, employeeId) {
+        super(page, `${pages.EDIT_EMPLOYEE}/${employeeId}/basic_info`, []);
     }
 
     /**
      * Permet de récupérer la valeur du nom préindiquée à l'affichage du formulaire
-     * @returns {string}
+     * @returns {Promise<string>}
      */
     async getName() {
-        return await this.page.getByLabel('Name').inputValue();
+        return this.page.getByLabel('Name').inputValue();
     }
 
     /**
      * Permet de récupérer la valeur de l'email préindiquée à l'affichage du formulaire
-     * @returns {string}
+     * @returns {Promise<string>}
      */
     async getEmail() {
-        return await this.page.getByLabel('Email').inputValue();
+        return this.page.getByLabel('Email').inputValue();
     }
 
     /**
