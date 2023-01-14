@@ -54,8 +54,9 @@ export class AddressPage extends BasePage {
      * Permet de change le type du zipcode en un champ texte classique
      * @returns {Promise}
      */
-    changeZipcodeType() {
-        this.page.evaluate(() => document.querySelector('input[type="number"]')?.setAttribute("type", "text"));
+    async changeZipcodeType() {
+        await this.page.waitForNavigation();
+        await this.page.evaluate(() => document.querySelector('input[type="number"]')?.setAttribute("type", "text"));
     }
 
     /**

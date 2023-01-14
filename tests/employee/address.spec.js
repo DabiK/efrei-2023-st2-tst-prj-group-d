@@ -53,17 +53,17 @@ test.describe("Basic informations edition tests", () => {
     })
 
 
-    // test("Cannot insert string for zipcode", async ({page}) => {
-    //     const addressPage = new AddressPage(page, createdEmployee.id);
-    //     await addressPage.goto();
-    //     console.log(page.url());
-    //     await addressPage.changeZipcodeType();
-    //     await addressPage.fillForm("1", "2", "3", "hello world");
-    //     await addressPage.submitForm();
+    test("Cannot insert string for zipcode", async ({page}) => {
+        const addressPage = new AddressPage(page, createdEmployee.id);
+        await addressPage.goto();
+        console.log(page.url());
+        await addressPage.changeZipcodeType();
+        await addressPage.fillForm("1", "2", "3", "hello world");
+        await addressPage.submitForm();
 
-    //     // si on est tj sur la meme url, alors le formulaire a été rejeté
-    //     await expect(page).toHaveURL(addressPage.path);
-    // })
+        // si on est tj sur la meme url, alors le formulaire a été rejeté
+        await expect(page).toHaveURL(addressPage.path);
+    })
 
     test("Cannot inject XSS", async ({page}) => {
         const xssInjection1 = "<script>alert('hacked1')</script>";

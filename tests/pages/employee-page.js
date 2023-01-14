@@ -38,4 +38,11 @@ export class EmployeePage extends BasePage {
         return email.trim();
     }
 
+    /**
+     * Récupère le jobtitle affiché sur cette page
+     * @returns {Promise<string>}
+     */
+    async getJobTitle() {
+        return this.page.locator('p').nth(1).textContent();
+    }
 }

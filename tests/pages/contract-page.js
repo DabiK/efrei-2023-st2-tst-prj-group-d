@@ -25,9 +25,43 @@ export class ContractPage extends BasePage {
 
     /**
      * Récupère la valeur du job title
-     * @returns {string}
+     * @returns {Promise<string>}
      */
-    async getJobTitle() {
-        return await this.page.locator('input[name="job_title"]').inputValue();
+    getJobTitle() {
+        return this.page.locator('input[name="job_title"]').inputValue();
+    }
+
+
+    /**
+     * Permet de modifier la date d'embauche, en changeant l'attribut readonly sur le champ
+     * @param {string} date
+     */
+    async editHiringDate(date) {
+        await this.removeReadonlyOnDate();
+        await this.page.getByLabel("Hiring date").fill(date);
+    }
+
+    /**
+     * Permet de retirer l'attribut readonly sur l'élément
+     */
+    async removeReadonlyOnDate() {
+        await this.page.waitForNavigation();
+        await this.page.evaluate(() => document.querySelector('input[name="hiring_date"]')?.removeAttribute("readonly"));
+    }
+
+    /**
+     * Rempli le formulaire
+     * @param {string} jobTitle 
+     */
+    async fillForm(jobTitle) {
+        await this.page.getByLabel('Job title').fill(jobTitle);
+    }
+
+    /**
+     * Soumet le formulaire de la page
+     */
+    async submitForm() {
+        const submitBtn = this.page.getByRole('button');
+        await submitBtn.click();
     }
 }
