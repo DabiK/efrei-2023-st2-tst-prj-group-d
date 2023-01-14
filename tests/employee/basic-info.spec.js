@@ -7,8 +7,10 @@ const { ListEmployeePage } = require("../pages/list-employee-page");
 const { ResetDatabasePage } = require("../pages/resetdbb-page");
 const { Employee } = require("./model/employee");
 
-// Créer l'employé
-const newEmployee = new Employee("Manaranche", "manaranche@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet");
+/**
+ * Les tests ne peuvent pas run en parrallele, sinon probleme de concurrence
+ */
+test.describe.configure({ mode: "serial" });
 
 test.describe("Basic informations edition tests", () => {
 
@@ -27,6 +29,7 @@ test.describe("Basic informations edition tests", () => {
    * Check if all fields contains the correct employee values
    */
   test("Should display correct informations", async ({ page }) => {
+    const newEmployee = new Employee("Mana1", "mana1@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 1");
     const createdEmployee = await createEmployee(page, newEmployee);
     const basicInfoPageModel = new BasicInfoPage(page, createdEmployee.id);
     await basicInfoPageModel.goto();
@@ -44,6 +47,7 @@ test.describe("Basic informations edition tests", () => {
    * Normally, client side should block the submission and the page should not change
    */
   test("Should verify email type (client side)", async ({ page }) => { 
+    const newEmployee = new Employee("Mana2", "mana2@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 2");
     const createdEmployee = await createEmployee(page, newEmployee);
 
     const basicInfoPageModel = new BasicInfoPage(page, createdEmployee.id);
@@ -59,7 +63,9 @@ test.describe("Basic informations edition tests", () => {
    * If the user edit the email input and transform it into text type, the client side wont be able to see if the email is well formated and
    * will allow the submission to the server. If the page remains, it means that server side is controlling the email format, otherwise its not
    */
-  test("Should verify email type (server side)", async ({ page }) => {   
+  test("Should verify email type (server side)", async ({ page }) => {  
+    const newEmployee = new Employee("Mana3", "mana3@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 3");
+ 
     const createdEmployee = await createEmployee(page, newEmployee);
 
     const basicInfoPageModel = new BasicInfoPage(page, createdEmployee.id);
@@ -74,6 +80,8 @@ test.describe("Basic informations edition tests", () => {
 
 
   test("Body fields cannot be empty or whitespaced", async ({ page }) => {
+    const newEmployee = new Employee("Mana4", "mana4@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 4");
+
     const createdEmployee = await createEmployee(page, newEmployee);
 
     const basicInfoPageModel = new BasicInfoPage(page, createdEmployee.id);
@@ -97,6 +105,7 @@ test.describe("Basic informations edition tests", () => {
    * Si ce n'est pas le cas, c'est que notre injection à fonctionnée et est interprétée
    */
   test("Cannot inject XSS", async ({ page }) => {
+    const newEmployee = new Employee("Mana5", "mana5@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 5");
     const createdEmployee = await createEmployee(page, newEmployee);
 
     const xssInjection = "<script>alert('hacked')</script>";
@@ -118,6 +127,7 @@ test.describe("Basic informations edition tests", () => {
    * rendre l'email dans un format qui ne devrait pas être autorisé
    */
   test("Cannot inject SQL", async ({ page }) => {
+    const newEmployee = new Employee("Mana6", "mana6@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 6");
     const createdEmployee = await createEmployee(page, newEmployee);
     const sqlInjection = `', email = 'Ceci est un email'; '--`;
 
@@ -138,6 +148,8 @@ test.describe("Basic informations edition tests", () => {
    * Aucun des autres champs de l'Employee doivent être modifiés
    */
   test("Should update only name and email", async ({ page }) => {
+    const newEmployee = new Employee("Mana7", "mana7@gmail.com", "AdressLine1", "AddressLine2", "City", "53270", new Date("2023-01-01").toLocaleDateString(), "Chef de projet 7");
+
     const createdEmployee = await createEmployee(page, newEmployee);
     const basicInfoPageModel = new BasicInfoPage(page, createdEmployee.id);
     await basicInfoPageModel.goto();
